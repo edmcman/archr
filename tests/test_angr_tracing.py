@@ -17,7 +17,11 @@ class TestangrTracing(unittest.TestCase):
         trace = qtb.fire()
         p = apb.fire()
         s = asb.fire()
-        tech = trace.tracer_technique()
+
+        # Better place to do this?
+        import angr
+
+        tech = trace.tracer_technique(mode=angr.exploration_techniques.tracer.TracingMode.Permissive, copy_states=True)
         simgr = p.factory.simulation_manager(s)
         simgr.use_technique(tech)
         simgr.run()
