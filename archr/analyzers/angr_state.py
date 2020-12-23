@@ -27,6 +27,9 @@ class SimArchrMount(angr.state_plugins.filesystem.SimConcreteFilesystem):
             guest_path
         ]).communicate()[0].decode().split()
 
+        if len(stat_output) != 17:
+            return None
+
         # parse output
         # st_mode, device number, major type, minor type are in hex
         for i in [3, 6, 9, 10]:
